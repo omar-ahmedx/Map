@@ -17,7 +17,7 @@ body {
 	left: 10px;
 	z-index: 1;
 	border-radius: 3px;
-	width: 120px;
+	width: 125px;
 	color: #fff;
 }
 
@@ -55,4 +55,12 @@ body {
 .filter-group input[type="checkbox"]:checked + label:before {
 	content: "✔";
 	margin-right: 5px;
+}
+
+@media (max-width: 425px) {
+	.filter-group {
+		height: 470px;
+		top: 70px;
+		overflow: scroll;
+	}
 }

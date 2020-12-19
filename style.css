@@ -170,7 +170,11 @@ body {
 }
 
 .feature {
+	cursor: pointer;
 	padding-bottom: 5px;
+}
+.feature:hover {
+	color: lightblue;
 }
 .feature-container-show {
 	height: 100%;

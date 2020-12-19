@@ -61,7 +61,6 @@ map.on("load", function () {
 			let feature = document.createElement("div");
 			feature.setAttribute("class", "feature");
 			feature.innerHTML = layerFeature[b].properties.Name;
-			feature.style.cursor = "pointer";
 			feature.addEventListener("click", () => {
 				let image, description, date, time, targetAud;
 				if (

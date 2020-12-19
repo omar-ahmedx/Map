@@ -228,3 +228,9 @@ filterSlider.addEventListener("click", () => {
 	filter.classList.toggle("filter-slide");
 	filterSlider.classList.toggle("slider-arrow");
 });
+map.addControl(
+	new MapboxDirections({
+		accessToken: mapboxgl.accessToken,
+	}),
+	"top-right"
+);

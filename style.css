@@ -89,7 +89,7 @@ body {
 
 .map-overlay {
 	position: absolute;
-	top: 110px;
+	top: 230px;
 	right: -300px;
 	background: rgba(255, 255, 255);
 	margin-right: 20px;
@@ -140,7 +140,7 @@ body {
 }
 
 #legend-slider {
-	top: 80px;
+	top: 200px;
 	right: 10px;
 }
 #legend-slider:before {

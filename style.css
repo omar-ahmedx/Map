@@ -162,3 +162,16 @@ body {
 	transform: rotate(180deg);
 	transition: all 1s ease-in-out;
 }
+.feature-container {
+	position: relative;
+	left: 25px;
+	height: 0;
+	overflow: hidden;
+}
+
+.feature {
+	padding-bottom: 5px;
+}
+.feature-container-show {
+	height: 100%;
+}

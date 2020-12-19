@@ -45,13 +45,102 @@ map.on("load", function () {
 
 		var value = document.createElement("span");
 		value.innerHTML = layers[i].id;
+		value.style.cursor = "pointer";
 		item.appendChild(key);
 		item.appendChild(value);
 		legend.appendChild(item);
+
+		let layerFeature = map.queryRenderedFeatures({
+			layers: [layers[i].id],
+		});
+
+		let featureContainer = document.createElement("div");
+		featureContainer.setAttribute("class", "feature-container");
+
+		for (let b = 0; b < layerFeature.length; b++) {
+			let feature = document.createElement("div");
+			feature.setAttribute("class", "feature");
+			feature.innerHTML = layerFeature[b].properties.Name;
+			feature.style.cursor = "pointer";
+			feature.addEventListener("click", () => {
+				let image, description, date, time, targetAud;
+				if (
+					layerFeature[b].properties.Image == undefined ||
+					layerFeature[b].properties.Image == ""
+				) {
+					image = "";
+				} else {
+					image = `<img src=${layerFeature[b].properties.Image} width="200px; height="200px">`;
+				}
+
+				if (
+					layerFeature[b].properties.Descriptio == undefined ||
+					layerFeature[b].properties.Descriptio == ""
+				) {
+					description = "";
+				} else {
+					description = `<p>${layerFeature[b].properties.Descriptio}</p>`;
+				}
+
+				if (
+					layerFeature[b].properties.Date == undefined ||
+					layerFeature[b].properties.Date == ""
+				) {
+					date = "";
+				} else {
+					date = `<p>${layerFeature[b].properties.Date}</p>`;
+				}
+
+				if (
+					layerFeature[b].properties.Time == undefined ||
+					layerFeature[b].properties.Time == ""
+				) {
+					time = "";
+				} else {
+					time = `<p>${layerFeature[b].properties.Time}</p>`;
+				}
+
+				if (
+					layerFeature[b].properties.Target_aud == undefined ||
+					layerFeature[b].properties.Target_aud == ""
+				) {
+					targetAud = "";
+				} else {
+					targetAud = `<p>${layerFeature[b].properties.Target_aud}</p>`;
+				}
+
+				var popup = new mapboxgl.Popup({ offset: [0, 0] })
+					.setLngLat(layerFeature[b].geometry.coordinates)
+					.setHTML(
+						image +
+							"<h3>" +
+							layerFeature[b].properties.Name +
+							"</h3>" +
+							description +
+							time +
+							date +
+							targetAud +
+							`<a href=${layerFeature[b].properties.Website} target="_blank">` +
+							"Website" +
+							"</a>"
+					)
+					.addTo(map);
+			});
+			featureContainer.appendChild(feature);
+			item.appendChild(featureContainer);
+		}
+
+		value.addEventListener("click", () => {
+			featureContainer.classList.toggle("feature-container-show");
+		});
 	}
 });
 
 map.on("click", function (e) {
+	popUp(e);
+});
+
+function popUp(e) {
 	var features = map.queryRenderedFeatures(e.point, {
 		layers: [
 			"Malls",
@@ -68,13 +157,10 @@ map.on("click", function (e) {
 			"Cinema",
 		],
 	});
-
 	if (!features.length) {
 		return;
 	}
-
 	var feature = features[0];
-	console.log(feature.properties);
 	let image, description, date, time, targetAud;
 	if (feature.properties.Image == undefined || feature.properties.Image == "") {
 		image = "";
@@ -94,7 +180,7 @@ map.on("click", function (e) {
 	if (feature.properties.Date == undefined || feature.properties.Date == "") {
 		date = "";
 	} else {
-		date = `<p>${feature.properties.date}</p>`;
+		date = `<p>${feature.properties.Date}</p>`;
 	}
 
 	if (feature.properties.Time == undefined || feature.properties.Time == "") {
@@ -121,13 +207,14 @@ map.on("click", function (e) {
 				"</h3>" +
 				description +
 				time +
+				date +
 				targetAud +
 				`<a href=${feature.properties.Website} target="_blank">` +
 				"Website" +
 				"</a>"
 		)
 		.addTo(map);
-});
+}
 
 const legendSlider = document.querySelector("#legend-slider");
 legendSlider.addEventListener("click", () => {

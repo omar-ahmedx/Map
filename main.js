@@ -262,7 +262,7 @@ map.addControl(
 	directionPosition
 );
 
-map.addControl(new mapboxgl.NavigationControl(), "top-right");
+map.addControl(new mapboxgl.NavigationControl(), mainController);
 map.addControl(
 	new mapboxgl.GeolocateControl({
 		positionOptions: {
@@ -270,5 +270,5 @@ map.addControl(
 		},
 		trackUserLocation: true,
 	}),
-	"top-right"
+	mainController
 );

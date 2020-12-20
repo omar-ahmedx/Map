@@ -263,4 +263,7 @@ body {
 		position: relative;
 		bottom: 300px;
 	}
+	.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+		top: 0px;
+	}
 }

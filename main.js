@@ -11,10 +11,6 @@ map.addControl(
 		mapboxgl: mapboxgl,
 	})
 );
-
-map.addControl(new mapboxgl.ScaleControl(), "bottom-right");
-map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
-
 var filterGroup = document.getElementById("filter-group");
 map.on("load", function () {
 	let layers = map.getStyle().layers;
@@ -242,29 +238,31 @@ directionSlider.addEventListener("click", () => {
 	}
 });
 
+map.addControl(new mapboxgl.ScaleControl(), "bottom-right");
+
 let x = window.matchMedia("(max-width: 425px)");
-let a = "top-right";
+let directionPosition = "top-right";
+let mainController = "bottom-right";
 function myFunction(x) {
 	if (x.matches) {
-		a = "top-left";
+		directionPosition = "top-left";
+		mainController = "top-right";
 	} else {
-		a = "top-right";
+		directionPosition = "top-right";
+		mainController = "bottom-right";
 	}
 }
-
-myFunction(x); // Call listener function at run time
-x.addEventListener("change", () => {
-	myFunction();
-});
+myFunction(x);
 
 map.addControl(
 	new MapboxDirections({
 		accessToken: mapboxgl.accessToken,
 		interactive: interactivity,
 	}),
-	a
+	directionPosition
 );
 
+map.addControl(new mapboxgl.NavigationControl(), "top-right");
 map.addControl(
 	new mapboxgl.GeolocateControl({
 		positionOptions: {
@@ -272,5 +270,5 @@ map.addControl(
 		},
 		trackUserLocation: true,
 	}),
-	"bottom-right"
+	"top-right"
 );

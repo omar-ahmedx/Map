@@ -15,7 +15,6 @@ body {
 	font-weight: 600;
 	position: absolute;
 	top: 40px;
-	left: -300px;
 	z-index: 1;
 	border-radius: 3px;
 	width: 125px;
@@ -61,7 +60,6 @@ body {
 
 #filter-slider {
 	top: 10px;
-	left: 10px;
 }
 #filter-slider:before {
 	content: " ";
@@ -74,22 +72,45 @@ body {
 	transform: rotate(180deg);
 	border-right-color: grey;
 }
-.filter-slide {
-	left: 10px;
-	transition: all 1s ease-in-out;
+
+@media (min-width: 426px) {
+	.filter-group {
+		left: -300px;
+	}
+	.filter-slide {
+		left: 10px;
+		transition: all 1s ease-in-out;
+	}
+	#filter-slider {
+		left: 10px;
+	}
 }
 
 @media (max-width: 425px) {
 	.filter-group {
-		height: 470px;
-		top: 70px;
+		height: 300px;
+		top: 270px;
+		right: -150px;
 		overflow: scroll;
+		z-index: 11;
+	}
+	.filter-slide {
+		right: 0;
+		transition: all 1s ease-in-out;
+	}
+	#filter-slider {
+		top: 240px;
+		right: 10px;
+	}
+	#filter-slider:before {
+		transform: rotate(360deg);
+		left: -5px;
 	}
 }
 
 .map-overlay {
 	position: absolute;
-	top: 230px;
+	top: 270px;
 	right: -300px;
 	background: rgba(255, 255, 255);
 	margin-right: 20px;
@@ -140,7 +161,7 @@ body {
 }
 
 #legend-slider {
-	top: 200px;
+	top: 240px;
 	right: 10px;
 }
 #legend-slider:before {
@@ -178,4 +199,64 @@ body {
 }
 .feature-container-show {
 	height: 100%;
+}
+
+.mapboxgl-ctrl-directions {
+	position: relative;
+	top: 35px;
+	right: -310px;
+	transition: all 1s ease-in-out;
+}
+
+#direction-slider {
+	top: 70px;
+	right: 10px;
+}
+#direction-slider:before {
+	content: " ";
+	height: 0;
+	position: absolute;
+	width: 0;
+	top: 3px;
+	left: -4px;
+	border: 10px solid transparent;
+	border-right-color: grey;
+}
+.direction-slide {
+	right: 0;
+	transition: all 1s ease-in-out;
+}
+
+@media only screen and (max-width: 425px) {
+	.map-overlay {
+		left: -250px;
+	}
+	.legend-slide {
+		left: 0;
+	}
+	#legend-slider {
+		top: 240px;
+		left: 10px;
+	}
+	#legend-slider:before {
+		transform: rotate(180deg);
+		left: 10px;
+	}
+	#direction-slider {
+		left: 10px;
+	}
+	#direction-slider::before {
+		transform: rotate(180deg);
+		left: 10px;
+	}
+	.mapboxgl-ctrl-directions {
+		left: -350px;
+	}
+	.direction-slide {
+		left: 0;
+	}
+	.mapboxgl-ctrl-group {
+		position: relative;
+		bottom: 300px;
+	}
 }

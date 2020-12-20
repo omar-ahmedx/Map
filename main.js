@@ -228,9 +228,34 @@ filterSlider.addEventListener("click", () => {
 	filter.classList.toggle("filter-slide");
 	filterSlider.classList.toggle("slider-arrow");
 });
+
+const directionSlider = document.querySelector("#direction-slider");
+let interactivity = false;
+directionSlider.addEventListener("click", () => {
+	const direction = document.querySelector(".mapboxgl-ctrl-directions");
+	direction.classList.toggle("direction-slide");
+	directionSlider.classList.toggle("slider-arrow");
+	if(interactivity) {
+		return	interactivity = false;
+	}else {
+		return	interactivity = true;
+	}
+});
+
 map.addControl(
 	new MapboxDirections({
 		accessToken: mapboxgl.accessToken,
+		interactive: interactivity,
 	}),
 	"top-right"
 );
+
+map.addControl(
+	new mapboxgl.GeolocateControl({
+	positionOptions: {
+	enableHighAccuracy: true
+	},
+	trackUserLocation: true
+	}),
+	"bottom-right"
+	);

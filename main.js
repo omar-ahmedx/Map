@@ -235,11 +235,26 @@ directionSlider.addEventListener("click", () => {
 	const direction = document.querySelector(".mapboxgl-ctrl-directions");
 	direction.classList.toggle("direction-slide");
 	directionSlider.classList.toggle("slider-arrow");
-	if(interactivity) {
-		return	interactivity = false;
-	}else {
-		return	interactivity = true;
+	if (interactivity) {
+		return (interactivity = false);
+	} else {
+		return (interactivity = true);
 	}
+});
+
+let x = window.matchMedia("(max-width: 425px)");
+let a = "top-right";
+function myFunction(x) {
+	if (x.matches) {
+		a = "top-left";
+	} else {
+		a = "top-right";
+	}
+}
+
+myFunction(x); // Call listener function at run time
+x.addEventListener("change", () => {
+	myFunction();
 });
 
 map.addControl(
@@ -247,15 +262,15 @@ map.addControl(
 		accessToken: mapboxgl.accessToken,
 		interactive: interactivity,
 	}),
-	"top-right"
+	a
 );
 
 map.addControl(
 	new mapboxgl.GeolocateControl({
-	positionOptions: {
-	enableHighAccuracy: true
-	},
-	trackUserLocation: true
+		positionOptions: {
+			enableHighAccuracy: true,
+		},
+		trackUserLocation: true,
 	}),
 	"bottom-right"
-	);
+);
